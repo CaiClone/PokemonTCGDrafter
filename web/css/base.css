@@ -1,0 +1,8 @@
+.img-thumbnail{
+    // your styles for the image
+    width: 2px;
+    height: auto;
+}
+body{
+    background-color:gray;
+}
