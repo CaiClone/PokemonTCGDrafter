@@ -1,8 +1,13 @@
 .img-thumbnail{
-    // your styles for the image
-    width: 2px;
     height: auto;
+    transition: all .15s ease-in-out;
 }
 body{
     background-color:gray;
+}
+.img-thumbnail:hover {
+    position:relative;
+    transform: translate(-50%, -50%);
+    transform: scale(1.6); 
+    z-index:999;
 }
