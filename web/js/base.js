@@ -17,7 +17,7 @@ $(document).ready(function(){
     
     eel.expose(updateTeam);
     function updateTeam(team){
+        $("#deck").val(team.join("\n"));     
     }
     eel.getOptions()(setOptions);
 });
-$("#deck").val(team.join("\n"));
