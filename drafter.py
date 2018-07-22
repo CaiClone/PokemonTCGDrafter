@@ -7,16 +7,18 @@ team = []
 options = []
 NOPTIONS=3
 def getTeamNames():
-    print([card.name for card in team])
-    print([card.set for card in team])
-    print([card.set_code for card in team])
-    print([card.number for card in team])
-    print([card.id for card in team])
-    return [card.name for card in team]
+    return [str(c.count)+" "+c.name+" "+c.id for c in team]
 
 @eel.expose
 def selectOption(opt):
-    team.append(options[int(opt)])
+    sel = options[int(opt)]
+    try:
+        pos = [t.id for t in team].index(sel.id)
+        print(pos)
+        team[pos].count+=1
+    except ValueError:
+        sel.count=1
+        team.append(sel)
     eel.updateTeam(getTeamNames())
     return getOptions()
 
