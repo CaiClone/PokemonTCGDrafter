@@ -1,5 +1,5 @@
 import eel
-from pokemontcgsdk import Card
+from pokemontcgsdk import Card,Set
 import numpy as np
 eel.init('web')
 
@@ -14,7 +14,6 @@ def selectOption(opt):
     sel = options[int(opt)]
     try:
         pos = [t.id for t in team].index(sel.id)
-        print(pos)
         team[pos].count+=1
     except ValueError:
         sel.count=1
@@ -25,7 +24,12 @@ def selectOption(opt):
 @eel.expose
 def getOptions():
     global options
-    options = np.random.choice(Card.where(set='generations', supertype='pokemon'),NOPTIONS,replace=False)
+    options = np.random.choice(Card.where(setCode='sm6', supertype='pokemon'),NOPTIONS,replace=False)
     return [card.image_url_hi_res for card in options]
 
-eel.start('index.html', options ={'chromeFlags':["--start-fullscreen"]})
+@eel.expose
+def getSets():
+    sets= [(s.code,s.name,s.symbol_url) for s in Set.all()]
+    return sets
+
+eel.start('index.html')#, options ={'chromeFlags':["--start-fullscreen"]})

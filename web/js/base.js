@@ -7,14 +7,26 @@ function setOptions(cards){
 }
 function fillSets(sets){
     const sg = $("#SetGrid");
-    sg.append(
-            `<div class="card" value="FB">
-                <img class="card-img-top setimg" src="https://images.pokemontcg.io/sm6/logo.png">
-            </div>`
-        );
+    for (let s of sets){
+        sg.append(
+                `<div class="card p-2 setCard" value="${s[0]}">
+                    <div class="row">
+                        <div class="col-auto">
+                            <img class="img-fluid setimg" src="${s[2]}">
+                        </div>
+                        <div class="col-auto">
+                            <h5>${s[1]}</h5>
+                        </div>
+                    </div>
+                </div>`
+            );
+    }
+    $(".setCard").click(function(){
+        $(this).toggleClass("bg-primary"); 
+     });
 }
 $(document).ready(function(){
-    fillSets();
+    eel.getSets()(fillSets);
     let cnt=0;
     $(".option").each(function() {
        $(this).attr('option',cnt);
@@ -29,13 +41,10 @@ $(document).ready(function(){
         $("#deck").val(team.join("\n"));     
     }
 });
-$(".setimg").click(function(){
-   $(this).toggleClass("bg-primary"); 
-});
 $("#btnGoDraft").click(function(){
-    let sets = $(".bg-primary").parent().map(function() {return $(this).attr('value');});
-    eel.getOptions()(function(){
-        setOptions();
+    let sets = $(".bg-primary").map(function() {return $(this).attr('value');});
+    eel.setSets()(function(options){
+        setOptions(options);
         $("#SetSelector").hide();
         $("#CardSelector").show();
     });
