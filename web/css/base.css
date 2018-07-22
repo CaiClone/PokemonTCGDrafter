@@ -11,3 +11,6 @@ body{
     transform: scale(1.6); 
     z-index:999;
 }
+.setimg {
+    width:200px;
+}
